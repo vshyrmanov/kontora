@@ -91,17 +91,28 @@ describe('Kontora API', () => {
     assert.equal(undone.body.issuedAt, null);
   });
 
-  it('searches visits by client name and ref', async () => {
-    await request(app).post('/api/visits').set(authed()).send(newVisit()).expect(201);
+  it('searches visits by client name, phone and ref', async () => {
+    const first = await request(app).post('/api/visits').set(authed()).send(newVisit()).expect(201);
     await request(app)
       .post('/api/visits')
       .set(authed())
-      .send(newVisit({ newClient: { name: 'Тарас Бондаренко', phone: '+380 50 000 00 01' } }))
+      .send(newVisit({ newClient: { name: 'Тарас Бондаренко', phone: '+380 50 987 65 43' } }))
       .expect(201);
-    const byName = await request(app).get('/api/visits').query({ q: 'тарас' }).set(authed()).expect(200);
-    assert.equal(byName.body.total, 1);
-    const byRef = await request(app).get('/api/visits').query({ q: '0001' }).set(authed()).expect(200);
-    assert.equal(byRef.body.total, 1);
+    const search = async (q: string) =>
+      (await request(app).get('/api/visits').query({ q }).set(authed()).expect(200)).body;
+
+    const byName = await search('тарас');
+    assert.equal(byName.total, 1);
+    assert.equal(byName.items[0].client.name, 'Тарас Бондаренко');
+
+    // пошук за телефоном ігнорує пробіли й дужки
+    const byPhone = await search('987 65');
+    assert.equal(byPhone.total, 1);
+    assert.equal(byPhone.items[0].client.name, 'Тарас Бондаренко');
+
+    const byRef = await search(first.body.visit.ref);
+    assert.equal(byRef.total, 1);
+    assert.equal(byRef.items[0].id, first.body.visit.id);
   });
 
   it('builds stats and dashboard', async () => {

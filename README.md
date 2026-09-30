@@ -19,7 +19,7 @@ cp apps/web/.env.example apps/web/.env
 docker run -d --name kontora-mongo -p 27017:27017 mongo:7   # або свій MongoDB
 
 npm run build -w @kontora/contracts
-npm run seed -- --demo           # адміністратор + демо-дані
+npm run seed:demo                # адміністратор + демо-дані (лише адмін: npm run seed)
 npm run dev:api                  # http://localhost:4000
 npm run dev:web                  # http://localhost:5173
 ```

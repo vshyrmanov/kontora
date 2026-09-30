@@ -1,0 +1,15 @@
+{
+  "name": "kontora",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "apps/*"],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "npm run build -w @kontora/contracts && npm run build -w @kontora/api && npm run build -w @kontora/web",
+    "dev:api": "npm run dev -w @kontora/api",
+    "dev:web": "npm run dev -w @kontora/web",
+    "seed": "npm run seed -w @kontora/api",
+    "typecheck": "npm run build -w @kontora/contracts && npm run typecheck --workspaces --if-present",
+    "test": "npm run build -w @kontora/contracts && npm test --workspaces --if-present"
+  }
+}

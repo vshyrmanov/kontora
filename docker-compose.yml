@@ -1,0 +1,29 @@
+# Локальний запуск усього стеку: docker compose up --build
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports: ['27017:27017']
+    volumes: [mongo-data:/data/db]
+
+  api:
+    build: { context: ., dockerfile: apps/api/Dockerfile }
+    restart: unless-stopped
+    depends_on: [mongo]
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      MONGODB_URI: mongodb://mongo:27017/kontora
+      JWT_SECRET: ${JWT_SECRET:?задайте JWT_SECRET у .env (мінімум 32 символи)}
+      CORS_ORIGIN: http://localhost:8080
+      APP_TIMEZONE: Europe/Kyiv
+    ports: ['4000:4000']
+
+  web:
+    build: { context: ., dockerfile: apps/web/Dockerfile }
+    restart: unless-stopped
+    depends_on: [api]
+    ports: ['8080:80']
+
+volumes:
+  mongo-data:

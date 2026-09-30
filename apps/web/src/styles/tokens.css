@@ -1,0 +1,73 @@
+/* Дизайн-токени. Компоненти беруть кольори лише звідси — обидві теми працюють автоматично. */
+:root {
+  --bg: #f2f3f7;
+  --surface: #ffffff;
+  --surface-2: #ebedf4;
+  --line: #dcdfe9;
+  --fg: #151929;
+  --muted: #5b6177;
+  --accent: #2f43c4;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2e6fb;
+  --ok: #17784c;
+  --ok-soft: #dcf0e5;
+  --warn: #9a5800;
+  --warn-soft: #fbead0;
+  --bad: #b3272b;
+  --bad-soft: #f8dddb;
+  --info: #3d4e9e;
+  --info-soft: #e6e9f5;
+  --shadow: 0 1px 2px rgb(21 25 41 / 0.06), 0 8px 24px rgb(21 25 41 / 0.06);
+  --backdrop: rgb(10 12 24 / 0.5);
+  --f-display: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  --f-body: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --r: 12px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0e1120;
+    --surface: #161a2b;
+    --surface-2: #1e2338;
+    --line: #2a3049;
+    --fg: #e8eaf4;
+    --muted: #9aa0b9;
+    --accent: #8d9bff;
+    --accent-ink: #0e1120;
+    --accent-soft: #242b55;
+    --ok: #5ecb94;
+    --ok-soft: #15301f;
+    --warn: #f1b45c;
+    --warn-soft: #362710;
+    --bad: #f48585;
+    --bad-soft: #3a1b1f;
+    --info: #a9b4f2;
+    --info-soft: #20264a;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0e1120;
+  --surface: #161a2b;
+  --surface-2: #1e2338;
+  --line: #2a3049;
+  --fg: #e8eaf4;
+  --muted: #9aa0b9;
+  --accent: #8d9bff;
+  --accent-ink: #0e1120;
+  --accent-soft: #242b55;
+  --ok: #5ecb94;
+  --ok-soft: #15301f;
+  --warn: #f1b45c;
+  --warn-soft: #362710;
+  --bad: #f48585;
+  --bad-soft: #3a1b1f;
+  --info: #a9b4f2;
+  --info-soft: #20264a;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
+  color-scheme: dark;
+}

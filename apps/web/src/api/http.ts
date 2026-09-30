@@ -46,9 +46,12 @@ export const session = {
       /* ignore */
     }
   },
-  onUnauthorized(listener: () => void) {
+  /** Підписка на 401; повертає функцію відписки (придатну як cleanup для useEffect). */
+  onUnauthorized(listener: () => void): () => void {
     unauthorizedListeners.add(listener);
-    return () => unauthorizedListeners.delete(listener);
+    return () => {
+      unauthorizedListeners.delete(listener);
+    };
   },
 };
 
